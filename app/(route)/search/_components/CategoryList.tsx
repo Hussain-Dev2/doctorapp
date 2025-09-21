@@ -1,6 +1,7 @@
 "use client";
 
 import Api from "@/app/_utils/Api";
+const STRAPI_BASE = process.env.NEXT_PUBLIC_STRAPI_URL?.replace(/\/$/, "") || "https://doctorstrapi.onrender.com";
 import React, { useState, useEffect } from "react";
 
 import {
@@ -46,7 +47,7 @@ function CategoryList() {
                     href={`/search/${cat.name}`}
                   >
                     <Image
-                      src={`http://localhost:1337${cat?.icon?.[0]?.url}`}
+                      src={`${STRAPI_BASE}${cat?.icon?.[0]?.url}`}
                       alt={cat.name}
                       width={20}
                       height={20}

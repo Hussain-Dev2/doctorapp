@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Api from "../_utils/Api";
+const STRAPI_BASE = process.env.NEXT_PUBLIC_STRAPI_URL?.replace(/\/$/, "") || "https://doctorstrapi.onrender.com";
 import Image from "next/image";
 import Spinner from "@/components/ui/Loader";
 import Link from "next/link";
@@ -91,7 +92,7 @@ function CategorySearch() {
             >
               <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-muted ring-1 ring-border transition group-hover:ring-primary/40">
                 <Image
-                  src={`http://localhost:1337${url}`}
+                  src={`${STRAPI_BASE}${url}`}
                   alt={cat?.name ?? "category"}
                   fill
                   className="object-cover"

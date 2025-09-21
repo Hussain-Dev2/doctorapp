@@ -1,7 +1,11 @@
 import axios from "axios";
 
+const STRAPI_BASE =
+  process.env.NEXT_PUBLIC_STRAPI_URL?.replace(/\/$/, "") ||
+  "https://doctorstrapi.onrender.com";
+
 const axiosGlobal = axios.create({
-  baseURL: "http://localhost:1337/api",
+  baseURL: STRAPI_BASE + "/api",
 });
 
 const getCategories = () => axiosGlobal.get("/categories?populate=*");

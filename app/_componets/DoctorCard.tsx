@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import Api from "../_utils/Api";
+const STRAPI_BASE = process.env.NEXT_PUBLIC_STRAPI_URL?.replace(/\/$/, "") || "https://doctorstrapi.onrender.com";
 
 type Doctor = {
   id?: string | number;
@@ -105,7 +106,7 @@ function DoctorCard({ doctor, index = 0 }: DoctorCardProps) {
       <div className="relative h-48 bg-gradient-to-br from-primary/10 to-primary/5">
         {d.image?.[0]?.url ? (
           <Image
-            src={`http://localhost:1337${d.image[0].url}`}
+            src={`${STRAPI_BASE}${d.image[0].url}`}
             alt={d.name || "doctor"}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-200"
