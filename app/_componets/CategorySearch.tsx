@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Api from "../_utils/Api";
-const STRAPI_BASE = process.env.NEXT_PUBLIC_STRAPI_URL?.replace(/\/$/, "") || "https://doctorstrapi.onrender.com";
+const STRAPI_BASE = process.env.NEXT_PUBLIC_STRAPI_URL?.replace(/\/$/, "") || "https://grounded-diamond-1d2fe83bb0.strapiapp.com/admin";
 import Image from "next/image";
 import Spinner from "@/components/ui/Loader";
 import Link from "next/link";

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const STRAPI_BASE =
   process.env.NEXT_PUBLIC_STRAPI_URL?.replace(/\/$/, "") ||
-  "https://doctorstrapi.onrender.com";
+  "https://grounded-diamond-1d2fe83bb0.strapiapp.com/admin";
 
 const axiosGlobal = axios.create({
   baseURL: STRAPI_BASE + "/api",
