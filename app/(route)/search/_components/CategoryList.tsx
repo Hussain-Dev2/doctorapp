@@ -1,7 +1,7 @@
 "use client";
 
 import Api from "@/app/_utils/Api";
-const STRAPI_BASE = process.env.NEXT_PUBLIC_STRAPI_URL?.replace(/\/$/, "") || "https://grounded-diamond-1d2fe83bb0.strapiapp.com/admin";
+const STRAPI_BASE = process.env.NEXT_PUBLIC_STRAPI_URL?.replace(/\/$/, "") || "https://doctorstrapi.onrender.com";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 

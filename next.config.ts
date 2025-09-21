@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
       // Allow images served from your Strapi instance on Render (production)
       {
         protocol: "https",
-        hostname: "grounded-diamond-1d2fe83bb0.strapiapp.com",
+        hostname: "https://doctorstrapi.onrender.com",
         pathname: "/**",
       },
       // Allow localhost for local development (http://localhost:1337)
