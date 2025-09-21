@@ -8,6 +8,7 @@ const STRAPI_BASE = process.env.NEXT_PUBLIC_STRAPI_URL?.replace(/\/$/, "") || "h
 import Image from "next/image";
 import Spinner from "@/components/ui/Loader";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function CategorySearch() {
   const [error, setError] = useState<string | null>(null);
@@ -19,6 +20,8 @@ function CategorySearch() {
       icon?: Array<{ url?: string }>;
     }>
   >([]);
+  const [query, setQuery] = useState<string>("");
+  const router = useRouter();
 
   const GetCategoryList = async () => {
     setError(null);
@@ -57,6 +60,8 @@ function CategorySearch() {
       <div className="flex w-full items-center gap-2 max-w-xl">
         <Input
           type="text"
+          value={query}
+          onChange={(e) => setQuery(String((e.target as HTMLInputElement).value))}
           placeholder="Search by category name"
           className="flex-1 rounded-full h-11 px-5"
         />
@@ -64,13 +69,21 @@ function CategorySearch() {
           type="button"
           variant="default"
           className="h-11 rounded-full px-6"
+          onClick={() => {
+            const q = query.trim();
+            if (!q) return;
+            router.push(`/search/${encodeURIComponent(q)}`);
+          }}
         >
           Search
         </Button>
       </div>
 
       <div className="w-full mt-8 grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4">
-        {CategoryList.map((cat, index) => {
+        {CategoryList.filter((c) => {
+          if (!query) return true;
+          return String(c.name ?? "").toLowerCase().includes(query.toLowerCase());
+        }).map((cat, index) => {
           const url = cat?.icon?.[0]?.url;
           if (!url)
             return (

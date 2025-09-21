@@ -3,6 +3,7 @@
 import Api from "@/app/_utils/Api";
 const STRAPI_BASE = process.env.NEXT_PUBLIC_STRAPI_URL?.replace(/\/$/, "") || "https://doctorstrapi.onrender.com";
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   Command,
@@ -21,6 +22,8 @@ function CategoryList() {
     name: string;
     icon: Array<{ url: string }>;
   }>>([]);
+  const [query, setQuery] = useState<string>("");
+  const router = useRouter();
 
   const getCategories = () => {
     Api.getCategories().then((res) => {
@@ -34,12 +37,30 @@ function CategoryList() {
   return (
     <div className="h-screen fixed flex flex-col justify-center items-center">
       <Command>
-        <CommandInput placeholder="Type a command or search..." />
+        <CommandInput
+          placeholder="Search by category name"
+          value={query}
+          onValueChange={(val: string) => setQuery(val)}
+          onKeyDown={(e: React.KeyboardEvent) => {
+            if (e.key === "Enter") {
+              const q = query.trim();
+              if (!q) return;
+              router.push(`/search/${encodeURIComponent(q)}`);
+            }
+          }}
+        />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
 
           <CommandGroup heading="Suggestions">
-            {categories.map((cat, index) => {
+            {categories
+              .filter((c) => {
+                if (!query) return true;
+                return String(c.name ?? "")
+                  .toLowerCase()
+                  .includes(query.toLowerCase());
+              })
+              .map((cat, index) => {
               return (
                 <CommandItem key={index}>
                   <Link
